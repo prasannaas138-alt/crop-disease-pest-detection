@@ -1,0 +1,58 @@
+# ML dependencies — Image-Based Crop Disease & Pest Infestation Early Identification
+#
+# STATUS: This file is a PLAN. Nothing has been installed by the foundation task.
+# Install with:  pip install -r ml/requirements.txt
+#
+# NOTE: this machine already has numpy, pandas, matplotlib, pillow,
+# opencv-contrib-python, scikit-learn and fastapi. Those are still listed (pinned)
+# so the project is reproducible on a clean machine.
+
+# --- Core scientific stack -------------------------------------------------
+numpy==2.5.2
+pandas==3.0.5
+matplotlib==3.9.2
+scikit-learn==1.9.0
+
+# --- Imaging ---------------------------------------------------------------
+pillow==10.4.0
+# NOTE: opencv-contrib-python ships the full `cv2` API. Do NOT also install
+# opencv-python in the same environment — having both breaks the cv2 import.
+opencv-contrib-python==4.10.0.84
+
+# --- Deep learning: PyTorch (ONE framework only) ---------------------------
+# Chosen over TensorFlow. Lightweight on Windows, good transfer-learning
+# ergonomics via torchvision.models / timm, easy to serve later.
+# Install the CUDA build from the official selector if GPU training is needed:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+torch>=2.2,<3.0
+torchvision>=0.17,<1.0
+
+# --- Lightweight ImageNet-pretrained backbones (transfer learning) ---------
+# MobileNetV3 / EfficientNet-B0 are the leading candidates.
+# No model is trained from scratch.
+timm>=1.0,<2.0
+
+# --- Configuration / experiment tracking -----------------------------------
+PyYAML>=6.0,<7.0
+tqdm>=4.66,<5.0
+
+# --- Evaluation / reporting ------------------------------------------------
+seaborn>=0.13,<1.0
+
+# --- Notebook environment (for ml/notebooks/ EDA) --------------------------
+jupyterlab>=4.2,<5.0
+ipykernel>=6.29,<7.0
+
+# --- Backend for pipeline step 16 (serving the model later) ----------------
+# Not used yet. Present so the serving stack is pinned and reproducible.
+fastapi>=0.110,<1.0
+uvicorn[standard]>=0.29,<1.0
+python-multipart>=0.0.9
+
+# --- Optional: model format conversion for later deployment ----------------
+# onnx>=1.16,<2.0
+# onnxruntime>=1.18,<2.0
+
+# --- Dev / lint (optional, install if the team wants) ----------------------
+# ruff>=0.4,<1.0
+# pytest>=8.0,<9.0
